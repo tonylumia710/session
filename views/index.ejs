@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body bgcolor="<%=locals.user ? locals.user.color : 'white'%>">
+    <h1><%= title %></h1>
+    <p>Bienvenido a: <%= title %></p>
+    <%if(locals && locals.user){%>
+      <div>
+        <p>Hola <%=locals.user.nombre%>, elegiste el color: <%=locals.user.color%>, tu email es: <%=locals.user.email%> y tu edad es: <%=locals.user.edad%></p>
+      </div>
+    <%}%>
+    <form action="/" method="POST">
+      <label>Ingrese su nombre:</label>
+      <input type="text" id="nombre"  placeholder="Nombre" name="nombre" value="<%=locals.old ? old.nombre : ''%>">
+      <br>
+      <% if (locals.errors && errors.nombre) { %>
+        <p id="error-password"><%= errors.nombre.msg %> </p>
+      <% } %>
+      <select name="color">
+        <option selected value="">Seleccione un color</option>
+        <option name="color" value="red">Rojo</option> 
+        <option name="color" value="blue">Azul</option> 
+        <option name="color" value="green">Verde</option> 
+        <option name="color" value="yellow">Amarillo</option> 
+      </select>
+      <br>
+      <% if (locals.errors && errors.color) { %>
+        <p  id="error-password"><%= errors.color.msg %> </p>
+      <% } %>
+      <label>Ingrese su email:</label>
+      <input type="text" id="email"  placeholder="Email" name="email" value="<%=locals.old ? old.email : ''%>">
+      <br>
+      <% if (locals.errors && errors.email) { %>
+        <p  id="error-password"><%= errors.email.msg %> </p>
+      <% } %>
+      <label>Ingrese su edad:</label>
+      <input type="text" id="edad"  placeholder="Edad" name="edad" value="<%=locals.old ? old.edad : ''%>">
+      <br>
+      <% if (locals.errors && errors.edad) { %>
+        <p  id="error-password"><%= errors.edad.msg %> </p>
+      <% } %>
+      <label>
+        <input type="checkbox" id="checkbox" name="check"> Recordar el color
+    </label>
+      <button type="submit">Enviar</button>
+      <form action="/olvidar" method="POST">
+      <button type="submit">Olvidar el color</button>
+      </form>
+    </form>
+
+  </body>
+</html>
